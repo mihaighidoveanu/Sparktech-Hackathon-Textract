@@ -1,10 +1,10 @@
 import xml.etree.ElementTree as ET
 
-def extractXML(path)
+def extractXML(path):
 
-    tree = ET.parse('eu-001-reg.xml')
+    tree = ET.parse(path)
     root = tree.getroot()
-     
+
     PDF = [[]]
     nr_tabel = 0
     nr_pagina = 0
@@ -22,21 +22,14 @@ def extractXML(path)
             y1 = child.attrib['y1']
             x2 = child.attrib['x2']
             y2 = child.attrib['y2']
-            boundaries = [x1, y1, x2, y2]
-            
+            boundaries = [int(x1), int(y1), int(x2), int(y2)]
+
             #print nr_pagina, nr_tabel, x1, y1, x2, y2
             if(len(PDF) == int(nr_pagina)):
-                PDF[int(nr_pagina) - 1].append(boundaries);
+                PDF[int(nr_pagina) - 1].append(boundaries)
             else:
-                PDF.append([])
-                PDF[int(nr_pagina) - 1].append(boundaries);
-            
-return PDF
+                while len(PDF) < int(nr_pagina):
+                    PDF.append([])
+                PDF[int(nr_pagina) - 1].append(boundaries)
 
-       
-    
-
-    
-
-    
-    
+    return PDF

@@ -41,49 +41,49 @@ def read_pdf_from_json(json_path):
 		PDF.append(empty_page)
 
 
-	#add words from json to lines 
+	#add words from json to lines
 	for page in pfjson:
-		
+
 		int_page = int(page)
 		current_line = 0
 		line_empty = True
 
 		for word in pfjson[page]["words"]:
-		
+
 
 			# if line has no empty values, thus is not empty
 			if all(PDF[int_page][current_line]):
-				
+
 				line_empty = False
 				# print 'line is not empty'
-				
+
 				last_word = PDF[int_page][current_line][0]
-				
+
 				# if last word has same y as current word, add current word to the line
 				#else change to a new line
 				if last_word['y'] == word['y']:
 
 					if word['bold'] == True :
-						word['bold'] = 1 
-					else : 
+						word['bold'] = 1
+					else :
 						word['bold'] = 0
 
 					PDF[int_page][current_line].append(word)
 				else :
 					# print "trecem la linie noua"
 					PDF[int_page].append([{}])
-					current_line = current_line + 1 
+					current_line = current_line + 1
 					line_empty = True
 			else:
 
 				if word['bold'] == True :
-					word['bold'] = 1 
-				else : 
+					word['bold'] = 1
+				else :
 					word['bold'] = 0
 
 				if line_empty :
 					PDF[int_page][current_line][0] = word
-				else : 
+				else :
 					PDF[int_page][current_line].append(word)
 
 	return PDF
