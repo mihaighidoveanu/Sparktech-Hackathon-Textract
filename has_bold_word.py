@@ -1,6 +1,6 @@
 def has_bold_word(row):
     for word in row:
         if word['bold'] == 1:
-            return True
+            return 1
     else:
-        return False
+        return 0
